@@ -5,7 +5,6 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const files = formData.getAll('files') as File[]
-    const targetWidth = parseFloat(formData.get('targetWidth') as string) || 8.0
 
     if (!files || files.length === 0) {
       return NextResponse.json(

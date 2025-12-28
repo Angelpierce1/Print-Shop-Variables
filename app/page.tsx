@@ -4,10 +4,10 @@ import { useState } from 'react'
 import ImageUploader from '../components/ImageUploader'
 import BatchProcessor from '../components/BatchProcessor'
 import HEICConverter from '../components/HEICConverter'
+import PrintCatalog from '../components/PrintCatalog'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('upload')
-  const [targetWidth, setTargetWidth] = useState(8.0)
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
@@ -22,28 +22,10 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Settings Sidebar */}
+        {/* Quality Standards Info */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">⚙️ Settings</h2>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            Target Print Width (inches)
-          </label>
-          <input
-            type="number"
-            min="0.1"
-            max="100"
-            step="0.5"
-            value={targetWidth}
-            onChange={(e) => {
-              setTargetWidth(parseFloat(e.target.value))
-            }}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-          <p className="mt-2 text-sm text-gray-500">
-            The width you want to print the image at
-          </p>
-          <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-semibold mb-2">📊 Quality Standards</h3>
+          <h2 className="text-xl font-semibold mb-4">📊 Quality Standards</h2>
+          <div className="p-4 bg-blue-50 rounded-lg">
             <p className="text-sm">
               <strong>High Quality:</strong> 480+ pixels<br />
               <strong>Low Quality:</strong> &lt; 480 pixels
@@ -85,17 +67,28 @@ export default function Home() {
               >
                 🔄 HEIC Converter
               </button>
+              <button
+                onClick={() => setActiveTab('catalog')}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === 'catalog'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                📋 Print Catalog
+              </button>
             </nav>
           </div>
 
           <div className="p-6">
             {activeTab === 'upload' && (
-              <ImageUploader targetWidth={targetWidth} />
+              <ImageUploader />
             )}
             {activeTab === 'batch' && (
-              <BatchProcessor targetWidth={targetWidth} />
+              <BatchProcessor />
             )}
             {activeTab === 'heic' && <HEICConverter />}
+            {activeTab === 'catalog' && <PrintCatalog />}
           </div>
         </div>
 

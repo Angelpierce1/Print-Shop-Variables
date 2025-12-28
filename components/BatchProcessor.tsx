@@ -2,11 +2,7 @@
 
 import { useState } from 'react'
 
-interface BatchProcessorProps {
-  targetWidth: number
-}
-
-export default function BatchProcessor({ targetWidth }: BatchProcessorProps) {
+export default function BatchProcessor() {
   const [files, setFiles] = useState<File[]>([])
   const [results, setResults] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
@@ -25,7 +21,6 @@ export default function BatchProcessor({ targetWidth }: BatchProcessorProps) {
     files.forEach((file) => {
       formData.append('files', file)
     })
-    formData.append('targetWidth', targetWidth.toString())
 
     try {
       const response = await fetch('/api/batch-check', {

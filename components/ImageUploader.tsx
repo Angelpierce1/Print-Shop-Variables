@@ -2,11 +2,7 @@
 
 import { useState } from 'react'
 
-interface ImageUploaderProps {
-  targetWidth: number
-}
-
-export default function ImageUploader({ targetWidth }: ImageUploaderProps) {
+export default function ImageUploader() {
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [result, setResult] = useState<any>(null)
@@ -31,7 +27,6 @@ export default function ImageUploader({ targetWidth }: ImageUploaderProps) {
     setLoading(true)
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('targetWidth', targetWidth.toString())
 
     try {
       const response = await fetch('/api/check-image', {

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import * as pdfjsLib from 'pdfjs-dist'
 
-// Set up the worker for Node.js environment
+// Disable worker for server-side (Node.js) - not needed in API routes
 if (typeof window === 'undefined') {
-  // Server-side: use Node.js worker or disable worker
-  pdfjsLib.GlobalWorkerOptions.workerSrc = require.resolve('pdfjs-dist/build/pdf.worker.min.js')
+  // Server-side: disable worker (not needed in Node.js environment)
+  pdfjsLib.GlobalWorkerOptions.workerSrc = ''
 } else {
   // Client-side: use CDN
   pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`

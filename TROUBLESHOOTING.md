@@ -1,4 +1,58 @@
-# Troubleshooting 404 Errors
+# Troubleshooting Guide
+
+## Startup Failure Messages
+
+### Common Startup Errors
+
+#### ❌ MISSING_SHARP
+**Error:** Sharp image processing library is not available  
+**Solution:** 
+```bash
+npm install sharp
+```
+
+#### ❌ MISSING_CANVAS
+**Error:** Canvas library is not available  
+**Solution:**
+```bash
+npm install canvas
+```
+
+#### ❌ PORT_IN_USE
+**Error:** Port 3000 is already in use  
+**Solution:**
+```bash
+# Kill process on port 3000
+lsof -ti:3000 | xargs kill -9
+# Or use a different port
+PORT=3001 npm run dev
+```
+
+#### ❌ BUILD_FAILED
+**Error:** Next.js build failed  
+**Solution:**
+1. Check TypeScript errors: `npm run lint`
+2. Check for missing dependencies: `npm install`
+3. Clear cache and rebuild:
+```bash
+rm -rf .next node_modules
+npm install
+npm run build
+```
+
+#### ❌ API_ROUTES_STATIC_EXPORT
+**Error:** Cannot use API routes with static export  
+**Solution:**
+- Remove `output: 'export'` from `next.config.js` for development
+- Use Vercel or another platform that supports serverless functions for deployment
+- Or remove API routes if you need static export
+
+#### ❌ INVALID_CONFIG
+**Error:** Invalid Next.js configuration detected  
+**Solution:**
+- Check `next.config.js` for syntax errors
+- Verify JSON is valid
+- Check for missing commas or brackets
 
 ## Common Causes and Solutions
 

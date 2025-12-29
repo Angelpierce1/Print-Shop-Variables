@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // This prevents Webpack from trying to bundle the rust binary
+    serverComponentsExternalPackages: ["@napi-rs/canvas"],
+  },
   images: {
     domains: [],
     unoptimized: process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES === 'true',
